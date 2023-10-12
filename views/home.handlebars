@@ -1,0 +1,36 @@
+{{> header}}
+<div class="container mt-4">
+  <div class="row">
+    <div class="col">
+      <h1 class="text-center py-2" style="background-color: #007BFF; color: white;">Welcome To Mohan's Blog Site</h1>
+{{#each blogPosts}}
+  <div class="blog-post mt-4 p-3 border rounded shadow">
+
+    <h2 style="color: #007BFF;"><a href="dashboard/post/{{id}}">{{title}}</a></h2>
+    <p class="post-content" style="padding-right: 20%";>
+      {{truncatedContent content}}
+      {{#if (gt content.length 200)}}
+        {{!-- ... <button class="btn btn-link" onclick="toggleContent('{{_id}}')">Read more</button> --}}
+
+      {{/if}}
+    </p>
+    {{!-- <div id="postContent{{_id}}" class="{{#unless showFullContent}}d-none{{/unless}}">
+      {{content}}
+    </div> --}}
+    <hr>
+    <p class="small">
+            <strong class="mr-2">Author:</strong>{{username}} |
+            <strong class="ml-2 mr-2">Created on:</strong>{{createdAt}}
+          </p>
+
+  </div>
+{{/each}}
+
+
+
+
+    </div>
+  </div>
+</div>
+
+{{> footer}}
