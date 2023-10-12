@@ -5,11 +5,19 @@ const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
-// const hbs = exphbs.create({});
-const sequelize = require('./config/database');
+const Sequelize = require('sequelize');
+
+
 const User = require('./models/User');
 const Post = require('./models/Post');
 const Comment = require('./models/Comment');
+
+let sequelize = require('./config/database');
+sequelize = new Sequelize(process.env.JAWSDB_URL, {
+  dialect: 'mysql',
+  logging: true 
+});
+
 
 const handlebars = require('express-handlebars');
 const hbs = handlebars.create({
