@@ -1,0 +1,24 @@
+{{> header}}
+ <div class="row">
+    <div class="col">
+      <h1 class="text-center py-2" style="background-color: #007BFF; color: white;">Dashboard</h1>
+    </div>
+  </div>
+
+  <div class="container mt-4">
+    <a href="/dashboard/createpost" class="btn btn-primary">Create New Post</a>
+  </div>
+  <br><br>
+  <div class="container">
+    {{#each posts2}}
+    <div class="card post mb-4"> 
+      <div class="card-body">
+        <h2 class="card-title"><a href="dashboard/post/{{id}}">{{title}}</a></h2>
+        <p class="card-text">{{content}}</p>
+        <a href="/dashboard/edit-post/{{id}}" class="btn btn-info">Edit</a>
+        <a href="/dashboard/delete-post/{{id}}" class="btn btn-danger">Delete</a>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+{{> footer}}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{post.title}} - Mohan Blog Site</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script>
+        var pid = window.location.href.split('/').reverse()[0];
+    </script>
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container">
+            <h1 class="navbar-brand">Comments</h1>
+        </div>
+    </nav>
+    <main class="container">
+        <article class="post">
+            {{#each post3}}
+            <h1>{{title}}</h1>
+            <p class="post-content">{{content}}</p>
+            {{/each}}
+            <br><br>
+            <h2>Comments</h2>
+            <br>
+            {{#each comments2}}
+            <div class="card comment">
+                <div class="card-body">
+                    <p class="card-text">{{content}}</p>
+                    <p class="card-text text-muted">By {{user}} on {{createdAt}}</p>
+                </div>
+            </div>
+            {{/each}}
+            <h2>Add a Comment</h2>
+            <form method="POST" action="/posts/add-comment">
+                <script>
+                    document.write('<input type="hidden" name="postId" value="' + pid + '">');
+                    document.write('<input type="hidden" name="commentsurl" value="' + location.href + '">');
+                </script>
+                
+                <div class="form-group">
+                    <label for="comment">Write your comment:</label>
+                    <textarea class="form-control" name="content" id="comment" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </article>
+    </main>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

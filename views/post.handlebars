@@ -1,0 +1,80 @@
+{{> header}}
+<div class="container mt-4">
+  <div class="row">
+    <div class="col">
+      <h1 class="text-center py-2" style="background-color: #007BFF; color: white;">Welcome To Mohan's Blog Site</h1>
+  
+  <main class="container">
+    <div class="container">
+      <article class="post">
+        {{#each post3}}
+        <h1>{{title}}</h1>
+        <p class="post-content">{{content}}</p>
+        {{/each}}
+        <br><br>
+        <h2>Comments</h2>
+        <br>
+        {{#each comments2}}
+        <div class="card comment">
+          <div class="card-body">
+            <p class="card-text">{{content}}</p>
+            <p class="card-text comment-info"> Author: {{user}} Created on: {{createdAt}}</p>
+          </div>
+        </div>
+
+        
+        {{/each}}
+
+        <h2>Add a Comment</h2>
+        <form method="POST" action="/posts/add-comment">
+          <script>
+            document.write('<input type="hidden" name="postId" value="' + pid + '">');
+            document.write('<input type="hidden" name="commentsurl" value="' + location.href + '">');
+          </script>
+
+          <div class="form-group">
+            <label for="comment">Write your comment:</label>
+            <textarea name="content" id="comment" class="form-control" rows="4" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </article>
+    </div>
+  </main>
+</div>
+
+{{> footer}}
+
+
+<!-- Script for Adding Comment -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const postId = "{{postId}}";  // Get the postId passed from the route
+
+    document.querySelector('form').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const content = document.getElementById('comment').value;
+
+      const formData = new FormData();
+      formData.append('postId', postId);
+      formData.append('content', content);
+
+      try {
+        const response = await fetch(`/posts/${postId}/add-comment`, {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (response.ok) {
+          // Comment added successfully, you might want to reload or update the comments section
+          // For simplicity, let's reload the page
+          window.location.reload();
+        } else {
+          console.error('Error adding comment:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error adding comment:', error);
+      }
+    });
+  });
+</script>
